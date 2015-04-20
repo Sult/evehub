@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Admin{% endblock %}
+
+{% block content %}
+<div class="panel panel-primary">
+    <div class="panel-heading">Admin/Overview</div>
+    <div class="panel-body">
+        <h2>Use your power wisely {{ user.username|capfirst }}!</h2>
+        <br>
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                <div class="panel-heading">New Subscriptions</div>
+                <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        <th>User</th>
+                        <th>Character</th>
+                        <th>Category</th>
+                        <th colspan="3">Subscription</th>
+                    </tr>
+                {% for sub in subscriptions %}
+                    <tr>
+                        <td><a href="#">{{ sub.user.username }}</a></td>
+                        <td>Ingame name</td>
+                        <td>{{ sub.get_category_display }}</td>
+                        <td>{{ sub.get_subscription_display }}</td>
+                        <td><a href="#">View</a></td>
+                        <td><a href="#">Accept</a></td>
+                    </tr>
+                {% endfor %}
+                </table>
+                </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

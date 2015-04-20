@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load add_css %}
+{% load humanize %}
+{% load character_tags %}
+
+{% block page_title %}DAF - Characters{% endblock %}
+
+{% block content %}
+<div class="panel panel-primary">
+    <div class="panel-heading">News</div>
+    <div class="panel-body">
+
+        <a href="#" class="btn btn-primary btn-md" role="button" data-toggle="modal" data-target="#ApiModal">Add API</a>
+    </div>
+</div>
+
+{# Create add api modal #}
+{% include "apis/api_modal.html" %}
+{% endblock %}
+
+{# needed for errorhandeling form in modal #}
+{% block js%}
+{% if api_form.errors %}
+<script type="text/javascript">
+    $(function () {
+        $('#ApiModal').modal('show');
+    });
+</script>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,23 @@
+{% for api in apis %}
+<a href="#{{ api.pk }}" data-toggle="collapse" aria-expanded="false" aria-controls="4"><h3>{{ api.name }}</h3></a>
+<div class="collapse" id="{{ api.pk }}">
+<div class="well-sm">
+<div class="row">
+<div class="col-sm-12">Expires</div>
+<div class="col-sm-12"><pre>{{ api.show_expires }}</pre></div>
+</div>
+<div class="row">
+<div class="col-sm-12">Key ID</div>
+<div class="col-sm-12"><pre>{{ api.show_key }}</pre></div>
+</div>
+<div class="row">
+<div class="col-sm-12">Verification Code</div>
+<div class="col-sm-12"><pre>{{ api.show_vcode }}</pre></div>
+</div>
+<div class="row">
+<div class="col-xs-6 text-center"><a href="{% url 'update_api' api.pk %}">Update</a></div>
+<div class="col-xs-6 text-center"><a class="delete" href="{% url 'delete_api' api.pk %}">Delete</a></div>
+</div>
+</div>
+</div>
+{% endfor %}

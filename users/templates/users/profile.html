@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load humanize %}
+{% load add_css %}
+
+{% block title %}User Profile{% endblock %}
+
+{% block content %}
+<div class="panel panel-primary">
+    <div class="panel-heading">User/Profile</div>
+    <div class="panel-body">
+        <h2>Welcome to your profile, {{user.username|capfirst}}!</h2>
+        <br>
+        <div class="row">
+        <div class="col-md-3 text-center">
+            <img src="{{ user.profile.avatar_url }}" alt="avatar" class="img-rounded">
+            <br><br>
+            <a href="#" class="btn btn-primary btn-md" role="button" data-toggle="modal" data-target="#AvatarModal">Change Avatar</a>
+        </div>
+        <div class="col-md-6">
+            <form class="form-horizontal" action="" method="post">
+                {% csrf_token %}
+
+
+                {% for field in profile_form %}
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">{{ field.label }}</label>
+                    <div class="col-sm-8">
+                    {{ field|add_css_class:"form-control input-sm" }}
+                    {% if field.label == "Email" %}
+                    <i class="pull-right">Validation comes later</i>
+                    {% endif %}
+                </div>
+                </div>
+                {% endfor %}
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Interests</label>
+
+                <div class="col-sm-8">
+                {% with profile_form.tagged_interests as tagged %}
+                {% for group in profile_form.interests|group_by:2 %}
+                <div class="row">
+                {% for tag in group %}
+                <div class="col-sm-6">
+                    <input type="checkbox" name="{{ tag }}"
+                    {% if tag in tagged %}checked{% endif %}
+                    > {{ tag }}
+                </div>
+                {% endfor %}
+                </div>
+                {% endfor %}
+                {% endwith %}
+            </div>
+            </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Locations</label>
+
+                <div class="col-sm-8">
+                {% with profile_form.tagged_locations as tagged %}
+                {% for group in profile_form.locations|group_by:2 %}
+                <div class="row">
+                {% for tag in group %}
+                <div class="col-sm-6">
+                    <input type="checkbox" name="{{ tag }}"
+                    {% if tag in tagged %}checked{% endif %}
+                    > {{ tag }}
+                </div>
+                {% endfor %}
+                </div>
+                {% endfor %}
+                {% endwith %}
+            </div>
+            </div>
+                <button type="submit" class="pull-right btn btn-primary" style="margin-left: 10px;">Save</button>
+            </form>
+        </div>
+        </div>
+    </div>
+</div>
+{% include "users/avatar_modal.html" %}
+{% endblock %}

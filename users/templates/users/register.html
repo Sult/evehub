@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load add_css %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="panel panel-primary">
+<div class="panel-heading">Register</div>
+<div class="panel-body">
+<div class="col-md-4">
+    <form action="{% url 'register_user' %}" method="post">{% csrf_token %}
+
+    {% for field in form %}
+    <div class="form-group">
+        <label>{{ field.label }}</label>
+        {{ field|add_css_class:"form-control" }} <span class="aform-danger">{{ field.errors.as_text}}</span>
+    </div>
+    {% endfor %}
+
+        <button type="submit" class="pull-right btn btn-primary btn-sm">Register</button>
+    </form>
+</div>
+</div>
+</div>
+{% endblock %}
